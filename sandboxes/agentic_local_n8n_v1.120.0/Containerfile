@@ -1,0 +1,10 @@
+FROM n8nio/n8n:1.120.0
+
+# Switch to root to install any necessary tools if needed (n8n image runs as node user by default usually)
+USER root
+
+# Ensure we have permissions (standard n8n practice)
+# The base image should be sufficient, but we can add specific configurations here if needed.
+
+# Switch back to node user
+USER node
