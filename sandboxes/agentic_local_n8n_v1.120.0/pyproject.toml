@@ -1,0 +1,17 @@
+[project]
+name = "agentic-local-n8n-v1-120-0"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "toml>=0.10.2",
+]
+
+[dependency-groups]
+dev = [
+    "black>=25.12.0",
+    "isort>=7.0.0",
+    "mypy>=1.19.1",
+    "types-toml>=0.10.8.20240310",
+]
