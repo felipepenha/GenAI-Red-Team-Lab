@@ -7,10 +7,17 @@ This handbook provides a collection of resources, sandboxes, and examples design
 ```text
 initiatives/genai_red_team_handbook
 ├── exploitation
-│   └── example
+│   ├── agent0
+│   ├── example
+│   ├── garak
+│   ├── LangGrinch
+│   ├── Ni8mare
+│   └── promptfoo
 └── sandboxes
     ├── RAG_local
-    └── llm_local
+    ├── agentic_local_n8n_v1.121.2
+    ├── llm_local
+    └── llm_local_langchain_core_v1.2.4
 ```
 
 ## Architecture
@@ -116,6 +123,12 @@ uv --version
     *   **Sub-guides**:
         *   [Adding New Mock Services](sandboxes/llm_local/app/mocks/README.md): Guide for extending the sandbox with new API mocks.
 
+*   **[LangChain Local Sandbox (Vulnerable)](sandboxes/llm_local_langchain_core_v1.2.4/README.md)**
+    *   **Summary**: A specialized version of the local sandbox configured with **langchain-core v1.2.4** to demonstrate **CVE-2025-68664** (LangGrinch). It contains an intentional insecure deserialization vulnerability for educational and testing purposes.
+
+*   **[n8n Vulnerable Sandbox](sandboxes/agentic_local_n8n_v1.120.0/README.md)**
+    *   **Summary**: A robust, containerized environment running **n8n v1.120.0**. This version is vulnerable to **four critical CVEs**: **Ni8mare** (CVE-2026-21858), **N8scape** (CVE-2025-68668), **CVE-2025-68613**, and **CVE-2026-21877**. The sandbox is pre-configured with dangerous nodes enabled (`NODES_EXCLUDE=""`) to allow red teamers to practice multiple exploitation techniques (RCE, sandbox escape, file write) safely in isolation.
+
 
 ### `exploitation/`
 
@@ -134,6 +147,13 @@ uv --version
 
 *   **[Promptfoo Scanner Example](exploitation/promptfoo/README.md)**
     *   **Summary**: A powerful red teaming setup using [Promptfoo](https://www.promptfoo.dev/). It runs automated probes to identify vulnerabilities such as PII leakage and prompt injection, providing detailed reports and regression testing capabilities.
+
+*   **[LangGrinch Exploitation](exploitation/LangGrinch/README.md)**
+    *   **Summary**: A dedicated exploitation module for **CVE-2025-68664** in the LangChain sandbox. It demonstrates how to use prompt injection to force the LLM into generating a malicious JSON payload, which is then insecurely deserialized by the application to leak environment secrets.
+
+*   **[n8n RCE via File Write Exploitation](exploitation/n8n_RCE_via_file_write/README.md)**
+    *   **Summary**: A complete, end-to-end Python exploitation script for **CVE-2026-21877** targeting the vulnerable n8n sandbox. It demonstrates workflow injection to exploit the unrestricted `Execute Command` node.
+
 
 ## Contribution Guide
 
