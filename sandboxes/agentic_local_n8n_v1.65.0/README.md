@@ -8,7 +8,7 @@ This project serves as a "Vulnerable n8n Instance". It runs a specific version o
 
 **Why use this for Red Teaming?**
 - **Controlled Environment**: Test attacks and defenses in a safe, isolated container without risking production systems.
-- **Reproducibility**: Guarantee the exact version (1.120.0) and configuration needed to trigger the vulnerability.
+- **Reproducibility**: Guarantee the exact version (1.65.0) and configuration needed to trigger the vulnerability.
 - **Offline Capable**: Work in air-gapped or restricted network environments.
 - **Zero Risk**: Isolate RCE payloads within a disposable container volume.
 

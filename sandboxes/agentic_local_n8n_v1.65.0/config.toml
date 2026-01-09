@@ -12,6 +12,6 @@ global_role_id = "global:owner"
 id = "redteam-user-id"
 email = "redteam@example.com"
 first_name = "Red"
-# Hash for "RedTeamPassword123!"
-password_hash = "$2b$12$1gaZP1aON6MFCt1EVmzjouiE.UPx2SEmA8zyvvWoqJQsemXznmEJK"
+# Hash for "RedTeamPassword123!" (Confirmed compatible $2a$10$ format)
+password_hash = "$2a$10$bQTW6X17apnqvPG1XsYGoeqfK4L1EEIhZZDgr0LSJggRXmioX1Z0C"
 global_role_id = "global:owner"

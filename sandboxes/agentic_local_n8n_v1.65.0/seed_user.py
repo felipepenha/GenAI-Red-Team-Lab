@@ -1,14 +1,15 @@
 import os
 import sqlite3
 
-import toml
+import tomlkit
 
 
 def load_config():
     """Load configuration from config.toml."""
     config_path = os.path.join(os.path.dirname(__file__), "config.toml")
     try:
-        return toml.load(config_path)
+        with open(config_path, "r") as f:
+            return tomlkit.load(f)
     except Exception as e:
         print(f"[-] Error loading config.toml: {e}")
         return None
@@ -34,28 +35,39 @@ def seed_database():
         # Ensure directory exists
         os.makedirs(os.path.dirname(db_path), exist_ok=True)
 
+        import time
+
+        # Poll for table existence (n8n creates it during migrations)
+        print("[*] Waiting for n8n to create 'user' table...")
+        table_exists = False
+        for _ in range(30):
+            try:
+                conn = sqlite3.connect(db_path)
+                cursor = conn.cursor()
+                cursor.execute(
+                    "SELECT name FROM sqlite_master WHERE type='table' AND name='user';"
+                )
+                if cursor.fetchone():
+                    table_exists = True
+                    conn.close()
+                    break
+                conn.close()
+            except Exception:
+                pass
+            time.sleep(2)
+
+        if not table_exists:
+            print("[-] Timeout: 'user' table was not created by n8n in time.")
+            return
+
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
 
-        # Create 'user' table if it doesn't exist (in case we run this before n8n starts)
-        cursor.execute(
-            """
-            CREATE TABLE IF NOT EXISTS user (
-                id TEXT PRIMARY KEY,
-                email TEXT,
-                firstName TEXT,
-                lastName TEXT,
-                password TEXT,
-                personalizationAnswers TEXT,
-                createdAt DATETIME,
-                updatedAt DATETIME,
-                settings TEXT,
-                disabled BOOLEAN DEFAULT 0,
-                mfaEnabled BOOLEAN DEFAULT 0,
-                roleSlug TEXT DEFAULT 'global:member'
-            )
-        """
-        )
+        # Determine correct role column name
+        cursor.execute("PRAGMA table_info('user')")
+        cols = [c[1] for c in cursor.fetchall()]
+        role_col = "roleSlug" if "roleSlug" in cols else "role"
+        print(f"[*] Detected role column: {role_col}")
 
         for user in users:
             user_id = user.get("id")
@@ -71,14 +83,15 @@ def seed_database():
             else:
                 # Insert user
                 cursor.execute(
-                    """
-                    INSERT INTO user (id, email, firstName, password, roleSlug, settings, mfaEnabled, disabled)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                    f"""
+                    INSERT INTO user (id, email, firstName, lastName, password, {role_col}, settings, mfaEnabled, disabled)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                     (
                         user_id,
                         email,
                         first_name,
+                        "System",  # lastName
                         pwd_hash,
                         role_id,
                         "{}",
