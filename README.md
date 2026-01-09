@@ -15,7 +15,7 @@ initiatives/genai_red_team_handbook
 │   └── promptfoo
 └── sandboxes
     ├── RAG_local
-    ├── agentic_local_n8n_v1.121.2
+    ├── agentic_local_n8n_v1.120.0
     ├── llm_local
     └── llm_local_langchain_core_v1.2.4
 ```

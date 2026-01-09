@@ -12,7 +12,7 @@ help:
 	@echo "  make clean         - Clean up containers and images"
 	@echo ""
 	@echo "Environment:"
-	@echo "  - n8n version: 1.121.2"
+	@echo "  - n8n version: 1.120.0"
 	@echo "  - URL: http://localhost:5678"
 	@echo "  - Vulnerability: CVE-2026-21877 (RCE via Arbitrary File Write)"
 	@echo ""
