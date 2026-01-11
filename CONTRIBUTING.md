@@ -17,6 +17,14 @@ graph LR
     PR -->|Merge| A
 ```
 
+## Adding New Tutorials and Standalone Code Samples
+
+Tutorials and standalone code samples, not exploiting the sandboxes, may be added to new sudirectories in the `tutorials/` directory.
+
+Be mindful of the importance of providing a clear path for reproducing the results. Code without proper environment configuration files, model requirements, and/or instructions are not acceptable.
+
+Contributors must weigh the value of the content for the audience against the effort of reproducing the results without proper containerization.
+
 ## Adding New Exploitation Examples Against Existing Sandboxes
 
 Exploitation examples demonstrate how to attack the sandboxes. You can create manual scripts or integrate automated scanning tools.
@@ -25,19 +33,19 @@ Exploitation examples demonstrate how to attack the sandboxes. You can create ma
 
 If you want to demonstrate a specific attack technique with a list of manually crafted prompts:
 
-1.  **Copy the Template**: Use `exploitation/example` as a starting point.
+1.  **Copy the Template**: Use `exploitation/example` as a starting point to create a new subdirectory under `exploitation/` (e.g., `exploitation/my_attack`).
 2.  **Configure the New Prompt List**: Modify `config.toml` to include your list of adversarial prompts under the `[attack]` section.
 
 ### Option B: Automated Tools (Garak, Promptfoo, etc.)
 
 If you want to integrate an existing security tool:
 
-1.  **Create a Directory**: Create a new directory under `exploitation/` (e.g., `exploitation/my_tool`).
+1.  **Create a Directory**: Create a new subdirectory under `exploitation/` (e.g., `exploitation/my_tool`).
 2.  **Add the Tool**: Add the tool to the directory, following the same structure as `exploitation/garak`, and `exploitation/promptfoo`.
 
 ### Option C: Other
 
-You can also create a more customized interaction with the sandbox by adding a new directory under `exploitation/` (e.g., `exploitation/my_tool`) and developing your own logic.
+You can also create a more customized interaction with the sandbox by adding a new subdirectory under `exploitation/` (e.g., `exploitation/my_tool`) and developing your own logic.
 
 
 ## Adding New Sandboxes
@@ -46,7 +54,7 @@ The core logic of a "sandbox" in this handbook is a containerized application th
 
 To add a new sandbox:
 
-1.  **Create a Directory**: Create a new directory under `sandboxes/` (e.g., `sandboxes/name-of-sandbox`).
+1.  **Create a Subdirectory**: Create a new subdirectory under `sandboxes/` (e.g., `sandboxes/name-of-sandbox`).
 
     Naming convention: `/[GenAI System Type]_[Host]_[Optional Tech Stack Details]`
 
