@@ -5,20 +5,15 @@ This handbook provides a collection of resources, sandboxes, and examples design
 ## Directory Structure
 
 ```text
-initiatives/genai_red_team_handbook
+.
 ├── exploitation
-│   ├── agent0
-│   ├── example
-│   ├── garak
-│   ├── LangGrinch
-│   ├── Ni8mare
-│   ├── n8n_RCE_via_file_write
-│   └── promptfoo
-└── sandboxes
-    ├── RAG_local
-    ├── agentic_local_n8n_v1.65.0
-    ├── llm_local
-    └── llm_local_langchain_core_v1.2.4
+│   ├── agent0
+│   ├── example
+│   ├── ...
+├── sandboxes
+│   ├── llm_local
+│   ├── ...
+│   └── README.md
 ```
 
 ## Architecture
