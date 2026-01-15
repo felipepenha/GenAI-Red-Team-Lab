@@ -10,14 +10,15 @@ This repository provides a collection of resources, sandboxes, and examples desi
 ```text
 .
 ├── exploitation
+│   ├── agent0
 │   ├── example
-│   ├── ...
-├── sandboxes
-│   ├── llm_local
-│   ├── ...
-└── tools
-    └── ghostglyph
-    ├── ...
+│   ├── garak
+│   ├── LangGrinch
+│   └── promptfoo
+└── sandboxes
+    ├── RAG_local
+    ├── llm_local
+    └── llm_local_langchain_core_v1.2.4
 ```
 
 ## Architecture
@@ -123,6 +124,9 @@ uv --version
     *   **Sub-guides**:
         *   [Adding New Mock Services](sandboxes/llm_local/app/mocks/README.md): Guide for extending the sandbox with new API mocks.
 
+*   **[LangChain Local Sandbox (Vulnerable)](sandboxes/llm_local_langchain_core_v1.2.4/README.md)**
+    *   **Summary**: A specialized version of the local sandbox configured with **langchain-core v1.2.4** to demonstrate **CVE-2025-68664** (LangGrinch). It contains an intentional insecure deserialization vulnerability for educational and testing purposes.
+
 
 ### `exploitation/`
 
@@ -141,6 +145,10 @@ uv --version
 
 *   **[Promptfoo Scanner Example](exploitation/promptfoo/README.md)**
     *   **Summary**: A powerful red teaming setup using [Promptfoo](https://www.promptfoo.dev/). It runs automated probes to identify vulnerabilities such as PII leakage and prompt injection, providing detailed reports and regression testing capabilities.
+
+*   **[LangGrinch Exploitation](exploitation/LangGrinch/README.md)**
+    *   **Summary**: A dedicated exploitation module for **CVE-2025-68664** in the LangChain sandbox. It demonstrates how to use prompt injection to force the LLM into generating a malicious JSON payload, which is then insecurely deserialized by the application to leak environment secrets.
+
 
 ## Contribution Guide
 
