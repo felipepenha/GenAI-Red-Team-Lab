@@ -2,8 +2,6 @@
 
 The [GenAI Red Team Initiative](https://github.com/GenAI-Security-Project/GenAI-Red-Team-Initiative) repository is designed to be extensible. We encourage you to contribute new sandboxes or exploitation examples to cover more scenarios and automated Red Teaming tools.
 
-Tools out of the aforementioned scope, such as Red Teaming utils, can be added to the `tools/` directory.
-
 
 ## Start Here!
 
