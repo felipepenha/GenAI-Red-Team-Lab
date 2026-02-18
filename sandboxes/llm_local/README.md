@@ -242,7 +242,7 @@ Run `make help` to see all commands:
 - `make ollama-serve` - Start Ollama (checks if already running)
 
 **MCP Server**
-- `make run-mcp` - lauch MCP container
+- `make run-mcp` - launch MCP container
 - `make stop-mcp` - Stop and remove the MCP container
 
 ## Testing the Mock API
