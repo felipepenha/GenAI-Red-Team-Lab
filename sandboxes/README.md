@@ -16,6 +16,8 @@ The goal of these sandboxes is to provide ready-to-use, isolated environments wh
 
 *   **`agentic_local_n8n_v1.65.0/`**: A vulnerable n8n sandbox (version 1.65.0) specifically configured to demonstrate critical vulnerabilities such as **Ni8mare (CVE-2026-21858)** (Unauthenticated RCE) and **CVE-2026-21877** (n8n Remote Code Execution via File Write). It features a "misconfigured" setup with all nodes enabled and network exposure, making it an ideal target for practicing exploitation techniques like manual RCE and workflow manipulation in an agentic workflow automation tool.
 
+*    **`mcp_local/`**: A local sandbox environment that mocks an LLM API (compatible with OpenAI's interface) using a local model (via Ollama) supported by some python function served through a Local MCP Server. This sandbox is useful for testing code from MCP tools, prompt injection vulnerabilities, and other security assessments without relying on external, paid APIs out of the box. 
+
 ## Usage
 
 Each sandbox directory contains its own `README.md` with specific instructions on how to build, run, and use that particular sandbox. Please refer to the individual sandbox documentation for details.
