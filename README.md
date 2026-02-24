@@ -19,6 +19,8 @@ This repository provides a collection of resources, sandboxes, and examples desi
     ├── RAG_local
     ├── llm_local
     └── llm_local_langchain_core_v1.2.4
+    └── agentic_local_n8n_v1.121.2
+    └── mcp_local
 ```
 
 ## Architecture
