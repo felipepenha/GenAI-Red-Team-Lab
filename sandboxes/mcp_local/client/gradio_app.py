@@ -30,6 +30,7 @@ prompt_examples = [
     ["What is the weather today?", "With MCP Tools"],
 ]
 
+
 class LLMClientCall(OpenAICall):
     """Mirascope OpenAI call wrapper for the Gradio interface.
 
@@ -44,10 +45,12 @@ class LLMClientCall(OpenAICall):
 
     call_params = OpenAICallParams(model=config["default"]["model"])
 
+
 def route_call(version: str):
-    os.environ["OPENAI_BASE_URL"] = os.environ["OPENAI_BASE_URL"].replace("/tool","")
+    os.environ["OPENAI_BASE_URL"] = os.environ["OPENAI_BASE_URL"].replace("/tool", "")
     if version == "With MCP Tools":
         os.environ["OPENAI_BASE_URL"] += "/tool"
+
 
 def chat_with_llm(message: str, history: List[Tuple[str, str]], version: str) -> str:
     """Process user message through the mock LLM API and return the response.
@@ -74,12 +77,10 @@ def chat_with_llm(message: str, history: List[Tuple[str, str]], version: str) ->
 
 with gr.Blocks(theme=gr.themes.Soft()) as demo:
     gr.Markdown("# 🤖 LLM Mock API")
-    
+
     version_toggle = gr.Radio(
-            ["Base", "With MCP Tools"], 
-            label="Select AI Version", 
-            value="Base"
-        )
+        ["Base", "With MCP Tools"], label="Select AI Version", value="Base"
+    )
 
     gr.ChatInterface(
         fn=chat_with_llm,
