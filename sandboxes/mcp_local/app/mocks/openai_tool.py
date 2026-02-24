@@ -26,6 +26,8 @@ router = APIRouter()
 
 # Initialize OpenAI client with Ollama backend
 MCP_SERVER_URL = os.getenv("MCP_SERVER_URL", "http://mcp_container:8000/sse")
+# Set a safety limit for recursive calls
+MAX_ITERATIONS = 5
 
 client = OpenAI(
     base_url=os.getenv("OLLAMA_BASE_URL", "http://host.containers.internal:11434/v1"),
@@ -44,9 +46,6 @@ async def chat_completions(
 
                 # Fetch available tools from MCP
                 openai_tools = await fetch_mcp_tools(session)
-
-                # Set a safety limit for recursive calls
-                MAX_ITERATIONS = 5
                 iterations = 0
 
                 while iterations < MAX_ITERATIONS:
