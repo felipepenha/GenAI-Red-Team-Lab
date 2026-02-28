@@ -72,3 +72,15 @@ sandboxes/name-of-sandbox/
 └── app/                # Application source code
     └── main.py         # Entry point exposing the API
 ```
+
+## Getting Code Ready for Review
+
+In order to maintain uniformity accross the code base, make sure to run `black` and `isort`.
+
+We suggest using `uv` to run run `black` and `isort`, in a temporary environment, via `uvx`:
+
+```bash
+cd [path to directory]
+
+uvx isort --profile black . && uvx black .
+```
