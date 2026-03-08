@@ -34,6 +34,7 @@
 | | Observability: [OpenTelemetry](https://opentelemetry.io/), [Grafana Loki](https://grafana.com/oss/loki/), [ELK Stack](https://www.elastic.co/elastic-stack), [Morpheus](https://github.com/nv-morpheus/Morpheus), [Datadog](https://www.datadoghq.com/). |
 | | LLM recon/evals (optional): [PyRIT](https://github.com/microsoft/pyrit), [Promptfoo](https://www.promptfoo.dev/), [Garak](https://github.com/NVIDIA/garak), Deepteam, Spikee |
 | **Phase 4: Exploitation** | [CleverHans](https://github.com/cleverhans-lab/cleverhans): Helps generating adversarial examples and attacks on AI models |
+|| [Agent0](https://github.com/agent0ai/agent-zero): Containerized Agentic System based on Kali Linux. See the examples in [GenAI-Red-Team-Lab/exploitation/agent0](https://github.com/GenAI-Security-Project/GenAI-Red-Team-Lab/tree/main/exploitation/agent0) |
 | **Phase 5: Persistence & Escalation** | [LLMGuard](https://github.com/LLMGuard/LLMGuard), [Giskard](https://github.com/Giskard-AI/giskard), or [Garak](https://github.com/NVIDIA/garak) for continuous guardrail validation |
 | | [LangSmith](https://docs.smith.langchain.com/) / [LlamaIndex](https://docs.llamaindex.ai/en/stable/) tracing for memory and state monitoring |
 | | [Pinecone Console](https://www.pinecone.io/docs/console/), [Weaviate Management UI](https://weaviate.io/docs/console/), [Chroma Vector DB Analyzer](https://docs.trychroma.com/guides/vector-db-analyzer) |
