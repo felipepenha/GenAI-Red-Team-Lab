@@ -1,34 +1,43 @@
 IMAGE_NAME     := localai
 CONTAINER_NAME := localai
-
-.PHONY: all build run attack stop clean
-
+PORT           := 8080
+.PHONY: all build run attack stop clean logs
 ## Build the container image
 build:
 	podman build -f Containerfile -t $(IMAGE_NAME) .
-
 ## Start the vulnerable LocalAI instance
 run:
-	podman run -d \
+	@echo "[*] Starting $(CONTAINER_NAME) on port $(PORT)..."
+	@podman stop $(CONTAINER_NAME) > /dev/null 2>&1 || true
+	@podman rm   $(CONTAINER_NAME) > /dev/null 2>&1 || true
+	@if ss -tlnp 2>/dev/null | grep -q ":$(PORT) " || lsof -i :$(PORT) > /dev/null 2>&1; then \
+		echo "  [-] ERROR: Port $(PORT) is already in use by another process."; \
+		echo "      Free the port before retrying (e.g. kill the process using it)."; \
+		exit 1; \
+	fi
+	@if podman run -d \
 		--name $(CONTAINER_NAME) \
 		--network host \
-		localhost/$(IMAGE_NAME)
-	@echo ""
-	@echo "  [+] LocalAI v2.17.1 is running at http://localhost:8080"
-	@echo "  [+] CVE-2024-6868 (tarslip / arbitrary write -> RCE) is exploitable."
-	@echo ""
-
+		localhost/$(IMAGE_NAME) > /dev/null 2>&1; then \
+		echo ""; \
+		echo "  [+] LocalAI v2.17.1 is running at http://localhost:$(PORT)"; \
+		echo ""; \
+	else \
+		echo "  [-] ERROR: Failed to start container."; \
+		echo "      Check logs with: make logs"; \
+		exit 1; \
+	fi
 ## Build + run (default target)
 all: build run
-
 ## Alias used by exploitation scripts to spin up the target
 attack: all
-
 ## Stop and remove the running container
 stop:
 	podman stop $(CONTAINER_NAME) 2>/dev/null || true
 	podman rm   $(CONTAINER_NAME) 2>/dev/null || true
-
+## Stream container logs
+logs:
+	podman logs -f $(CONTAINER_NAME)
 ## Stop the container and delete the image
 clean: stop
 	podman rmi $(IMAGE_NAME) 2>/dev/null || true

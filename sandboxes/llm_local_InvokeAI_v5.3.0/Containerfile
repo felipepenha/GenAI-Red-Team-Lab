@@ -12,6 +12,24 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install InvokeAI 5.3.0 (CPU-only, no GPU required for lab)
+# Fix for bitsandbytes on arm64 (InvokeAI v5.3.0 requires bitsandbytes==0.43.3 which lacks arm64 Linux wheels)
+# Since the lab is CPU-only, we create a dummy package to satisfy pip without crashing.
+RUN ARCH=$(uname -m) && \
+    case "$ARCH" in \
+        aarch64|arm64) \
+            echo "Building dummy bitsandbytes wheel for arm64..." && \
+            mkdir -p /tmp/dummy-bnb && cd /tmp/dummy-bnb && \
+            echo "from setuptools import setup; setup(name='bitsandbytes', version='0.43.3')" > setup.py && \
+            pip install . && \
+            rm -rf /tmp/dummy-bnb \
+            ;; \
+        x86_64) \
+            echo "x86_64 architecture detected, no bitsandbytes workaround needed" \
+            ;; \
+        *) echo "Unsupported architecture: $ARCH"; exit 1 ;; \
+    esac
+
+# Install InvokeAI 5.3.0 (CPU-only, no GPU required for lab)
 RUN pip install --no-cache-dir \
     "invokeai==5.3.0" \
     --extra-index-url https://download.pytorch.org/whl/cpu

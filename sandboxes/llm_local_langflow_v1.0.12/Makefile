@@ -15,8 +15,8 @@ run:
 		exit 1; \
 	fi
 	@if podman run -d \
-		--name $(CONTAINER_NAME) \
-		--network host \
+   	 --name $(CONTAINER_NAME) \
+    	--network host \
 		$(IMAGE_NAME) > /dev/null 2>&1; then \
 		echo ""; \
 		echo "  [+] Langflow v1.0.12 running at http://localhost:$(PORT)"; \
@@ -52,4 +52,5 @@ format:
 		echo "  [-] isort not found. Install with: pip install isort"; \
 	fi
 	@echo "[+] Formatting complete!"
+
 

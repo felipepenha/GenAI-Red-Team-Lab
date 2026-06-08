@@ -8,11 +8,14 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-RUN curl -fsSL \
-    https://github.com/mudler/LocalAI/releases/download/v2.17.1/local-ai-Linux-x86_64 \
-    -o local-ai \
-    && chmod +x local-ai
-
+RUN ARCH=$(uname -m) && \
+    case "$ARCH" in \
+        aarch64|arm64) BINARY="local-ai-Linux-arm64" ;; \
+        x86_64)        BINARY="local-ai-Linux-x86_64" ;; \
+        *) echo "Unsupported architecture: $ARCH"; exit 1 ;; \
+    esac && \
+    curl -fsSL "https://github.com/mudler/LocalAI/releases/download/v2.17.1/$BINARY" -o local-ai && \
+    chmod +x local-ai
 RUN mkdir -p /app/models
 
 EXPOSE 8080
