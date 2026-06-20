@@ -35,23 +35,29 @@ The [Legacy Repository](https://github.com/OWASP/www-project-top-10-for-large-la
 │   ├── agent0
 │   ├── example
 │   ├── garak
+│   ├── Langflow_v1.0.12
 │   ├── LangGrinch
+│   ├── LocalAI_v2.17.1
 │   ├── n8n_RCE_via_file_write
 │   ├── Ni8mare
-│   ├── openclaw
 │   └── promptfoo
 ├── LICENSE
 ├── README.md
 ├── sandboxes
 │   ├── agentic_local_n8n_v1.65.0
 │   ├── llm_local
+│   ├── llm_local_InvokeAI_v5.3.0
 │   ├── llm_local_langchain_core_v1.2.4
+│   ├── llm_local_langflow_v1.0.12
+│   ├── llm_local_localAI_v2.17.1
 │   ├── mcp_local
 │   ├── RAG_local
 │   └── README.md
 └── tutorials
     ├── community_resources.md
-    └── README.md
+    ├── llm_chatbot_system_prompt_exfiltration.md
+    ├── README.md
+    └── tools.md
 ```
 
 ## Architecture
@@ -157,8 +163,20 @@ uv --version
     *   **Sub-guides**:
         *   [Adding New Mock Services](sandboxes/llm_local/app/mocks/README.md): Guide for extending the sandbox with new API mocks.
 
+*   **[Local MCP Sandbox](sandboxes/mcp_local/README.md)**
+    *   **Summary**: A local sandbox environment incorporating the Model Context Protocol (MCP) to simulate tool integrations. It includes a mock API gateway using FastAPI, a mock MCP server, and Ollama integration to test agentic workflows and tool-calling behaviors.
+
 *   **[LangChain Local Sandbox (Vulnerable)](sandboxes/llm_local_langchain_core_v1.2.4/README.md)**
     *   **Summary**: A specialized version of the local sandbox configured with **langchain-core v1.2.4** to demonstrate **CVE-2025-68664** (LangGrinch). It contains an intentional insecure deserialization vulnerability for educational and testing purposes.
+
+*   **[InvokeAI Sandbox (Vulnerable)](sandboxes/llm_local_InvokeAI_v5.3.0/README.md)**
+    *   **Summary**: A sandbox environment deploying a vulnerable instance of **InvokeAI v5.3.0**. Designed to practice unauthenticated Remote Code Execution (RCE) via model deserialization attacks (CVE-2024-12029) against GenAI image generation platforms.
+
+*   **[Langflow Sandbox (Vulnerable)](sandboxes/llm_local_langflow_v1.0.12/README.md)**
+    *   **Summary**: A sandbox environment deploying a vulnerable instance of **Langflow v1.0.12** for testing unauthenticated Remote Code Execution (RCE) via its custom components backend (CVE-2024-37014).
+
+*   **[LocalAI Sandbox (Vulnerable)](sandboxes/llm_local_localAI_v2.17.1/README.md)**
+    *   **Summary**: A sandbox environment deploying a vulnerable instance of **LocalAI v2.17.1** for testing a critical tarslip vulnerability (CVE-2024-6868), which allows arbitrary file writes leading to Remote Code Execution (RCE).
 
 *   **[n8n Vulnerable Sandbox](sandboxes/agentic_local_n8n_v1.65.0/README.md)**
     *   **Summary**: A robust, containerized environment running **n8n v1.65.0**. This version is vulnerable to **four critical CVEs**: **Ni8mare** (CVE-2026-21858), **N8scape** (CVE-2025-68668), **CVE-2025-68613**, and **CVE-2026-21877**. The sandbox is pre-configured with dangerous nodes enabled (`NODES_EXCLUDE=""`) to allow red teamers to practice multiple exploitation techniques (RCE, sandbox escape, file write) safely in isolation.
@@ -181,8 +199,14 @@ uv --version
 *   **[Promptfoo Scanner Example](exploitation/promptfoo/README.md)**
     *   **Summary**: A powerful red teaming setup using [Promptfoo](https://www.promptfoo.dev/). It runs automated probes to identify vulnerabilities such as PII leakage and prompt injection, providing detailed reports and regression testing capabilities.
 
+*   **[Langflow Exploitation](exploitation/Langflow_v1.0.12/README.md)**
+    *   **Summary**: Details the discovery and exploitation of **CVE-2024-37014** (RCE via Custom Component) in the Langflow sandbox, demonstrating how an attacker can execute arbitrary system commands or establish a reverse shell.
+
 *   **[LangGrinch Exploitation](exploitation/LangGrinch/README.md)**
     *   **Summary**: A dedicated exploitation module for **CVE-2025-68664** in the LangChain sandbox. It demonstrates how to use prompt injection to force the LLM into generating a malicious JSON payload, which is then insecurely deserialized by the application to leak environment secrets.
+
+*   **[LocalAI Tarslip Exploitation](exploitation/LocalAI_v2.17.1/README.md)**
+    *   **Summary**: Demonstrates how to exploit **CVE-2024-6868** (Tarslip) in the LocalAI sandbox. The exploit uses a custom Python script to upload a malicious tar file that writes files to arbitrary locations, leading to Remote Code Execution (RCE) by overwriting backend assets.
 
 *   **[Ni8mare Exploitation](exploitation/Ni8mare/README.md)**
     *   **Summary**: A demonstration of **CVE-2026-21858** (Ni8mare) against the n8n sandbox. It uses a custom Python script to simulate the critical "Unauthenticated Arbitrary File Read" vulnerability, extracting the SQLite database and dumping administrator credentials (hashed passwords) to prove full system compromise.
@@ -195,11 +219,14 @@ uv --version
 
 ### `tutorials/`
 
-*   **[Community Resources for Agentic AI Red Teaming](etutorials/community_resources.md)**
+*   **[Community Resources for Agentic AI Red Teaming](tutorials/community_resources.md)**
     * **Summary**: A curated, professional list of community resources to help practitioners plan, execute, and improve agentic AI red teaming efforts.
 
-*   **[Tools](tools.md)**
+*   **[Tools](tutorials/tools.md)**
     * **Summary**: A curated list of tools, organized by the phases defined in the [GenAI Red Teaming Manual](https://genai.owasp.org/initiatives/#ai-redteaming).
+
+*   **[LLM Chatbot System Prompt Exfiltration](tutorials/llm_chatbot_system_prompt_exfiltration.md)**
+    * **Summary**: A comprehensive tutorial outlining a five-stage attack chain (from passive reconnaissance to API-layer system role injection) targeting LLM-powered chatbots to exfiltrate their system prompt, including remediation steps.
 
 
 ## Contribution Guide
